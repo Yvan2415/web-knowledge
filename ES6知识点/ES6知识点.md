@@ -61,7 +61,32 @@ for(let codePoint of str){
 4.includes(), startsWith(), endsWith() 都返回Boolean,支持第二个参数,表示起始位置
 5.repeat,返回一个字符串,将以前的字符串重复n次,如果n小数,取整
 6.padStart,padEnd(length,"str"):length:补全后的长度,用str来补齐
-7.字符串模板(``)
+7.字符串模板(``),${},里面可以写函数,``可以嵌套
+
+```javascript
+//通过这种方法可以模拟聊天
+const user = 'Mary';
+const topic = "Learn to use markdown";
+const sentence = highLight`${user} has comment on your topic ${topic}`
+
+function highLight(strings,...values){
+//strings   ["", " has comment on your topic ", ""] 
+//如果开头是字符串,第一个元素就不是空,后面一个也是
+
+//...values 按顺序的参数
+    const hightlighted = values.map(value => {
+        return `<span class="highlighted">${value}<span>`
+    })
+
+    let str = strings.reduce((pre,curr,i) => {
+        return `${pre}${curr}${hightlighted[i] || ''}`
+    },'')
+        return str; // <span class="highlighted">Mary<span> has comment on your topic <span class="highlighted">Learn to use markdown<span>
+}
+
+```
+
+
 
 ### *4.正则拓展*
 
@@ -140,6 +165,27 @@ splice(start,num,...items)	//从数组中添加或删除元素。
 		（2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
 		（3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。
 		（4）不可以使用yield命令，因此箭头函数不能用作Generator函数。
+
+##### 箭头函数使用时的注意点
+
+```javascript
+<html>
+	<body>
+		<div class="zoom"></div>
+	</body>
+	<scrtip>
+		//当我们真的需要this的时候
+		const button = document.querySelector(".zoom");
+		//这里要用function,因为这个function会被绑定到触发click的这个对象上
+		button.addEventListener("click",function(){
+            this.classList.add("in");
+            setTimeout(()=>{//这里不需要,因为这里使用的是父作用域
+                this.classList.remove('in');
+            },2000);
+        });
+	</script>
+</html>
+```
 
 
 
