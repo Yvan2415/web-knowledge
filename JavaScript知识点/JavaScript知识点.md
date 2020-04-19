@@ -202,6 +202,20 @@ Ajax是页面无刷新请求数据操作
 
 > 在Javscript中，解析器在向执行环境中加载数据时，对函数声明和函数表达式并非是一视同仁的，解析器会率先读取函数声明，并使其在执行任何代码之前可用（可以访问），至于函数表达式，则必须等到解析器执行到它所在的代码行，才会真正被解析执行。
 
+```javascript
+add(1,2);//3
+function add(x,y){
+    alert(x+y)
+}
+
+add(1,2) //add is not a function  
+var add = function(x,y){  
+    alert(x+y)  
+} 
+```
+
+
+
 ### *18.对作用域上下文和this的理解*
 
 ```javascript
