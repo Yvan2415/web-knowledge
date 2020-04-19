@@ -108,6 +108,28 @@ var regex = new RegExp("xyz",'g');
 3.新增find,用于查找项目,取代了indexOf查找
 4.新增`copyWithin`,includes,fill,flat方法,用于查找,补全,转换
 
+##### 遍历
+
+```javascript
+for(let i = 0;i < array.length; i++)//写法比较繁琐
+array.forEach(item => { //循环过程中不可以跳过(break,continue)
+	console.log(item);
+})
+Array.prototype.hello = function(){
+	console.log("hello array")
+}
+for(let index in array){ //如果数组原型上有值也会被循环出来
+	console.log(array[index]); // 1 2 3 [Function]
+}
+
+//for ... of ... 可以解决以上的问题
+for( let item of array){ //可以中断
+	console.log(item);
+}
+```
+
+##### Array.from 将一个类数组对象转化为一个数组
+
 ```javascript
 slice(start,end)	//选取数组的的一部分，并返回一个新数组。
 splice(start,num,...items)	//从数组中添加或删除元素。
