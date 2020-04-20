@@ -105,7 +105,7 @@ var regex = new RegExp("xyz",'g');
 ### *5.Array数组类型的升级优化*
 1.数组的赋值解构 let [a,b,c] = [1,2,3]
 2.(...)可以实现数组和松散序列的相互转换
-3.新增find,用于查找项目,取代了indexOf查找
+3.新增find,findIndex 用于查找项目,取代了indexOf查找
 4.新增`copyWithin`,includes,fill,flat方法,用于查找,补全,转换
 
 ##### 遍历
@@ -129,6 +129,22 @@ for( let item of array){ //可以中断
 ```
 
 ##### Array.from 将一个类数组对象转化为一个数组
+
+```javascript
+Array.from(list,fn)// fn:转换时将每一个元素进行操作
+```
+
+##### Array.of
+
+```
+new Array(7);//length = 7 [undefined * 7]
+new Array(7,6,5) // [7,6,5]
+
+Array.of()//不管传入几个参数,都是生成一个包含这个元素的数组
+Array.of(1)//[1]
+```
+
+
 
 ```javascript
 slice(start,end)	//选取数组的的一部分，并返回一个新数组。
@@ -426,6 +442,19 @@ handler.construct()
 > 	3.通过export方式导出,在导入时要加{},export default则不需要
 > 	4.export default向外暴露的成员,可以使用变量来接收
 
+```javascript
+export let obj = {}
+export const name = "fang"; //命名导出
+export default let user = {  //默认导出
+    username: '123'
+}
+
+//import的时候
+import user,{obj,name} from './demo.js'//命名导出不是赋值解构,只是像
+```
+
+  
+
 ## Class
 
 ##### 声明类:
@@ -465,3 +494,54 @@ promise:是一种异步编程的解决方案
 	
 
 2.一旦状态改变，就不会再变，任何时候都可以得到这个结果。 Promise 对象的状态改变，只有两种可能：从pending 变为 fulfilled 和从 pending变为 rejected 。只要这两种情况发生，状态就凝固了，不会再变了，会一直保持这个结果，这时就称为 resolved（已定型）。如果改变已经发生了，你再对 Promise 对象添加回调函数，也会立即得到这个结果。这与事件（Event）完全不同，事件的特点是，如果你错过了它，再去监听，是得不到结果的。
+
+
+
+##### Promise.all   Promise.race
+
+```javascript
+let userPromise = new Promise((resolve,reject) => {
+	setTimeout(()=>{
+		resolve({
+			name: 'fang',
+			age: 22
+		})
+	},2000);
+});
+
+let moviePromise = new Promise((resolve,reject) => {
+	resolve("hello Promise");
+});
+//在所有的promise对象都执行完之后才会执行,如果有一个失败,就执行catch方法
+//promise.race 其状态由第一个promise返回的状态决定,不是参数的第一个
+Promise.all([userPromise,moviePromise]).then(res =>{
+	console.log(res);
+	let [user,movie] = res;
+	console.log(user);
+	console.log(movie);
+}).catch(err => {
+	console.log(err);
+});
+```
+
+## Symbol
+
+**symbol** 是一种基本数据类型 （[primitive data type](https://developer.mozilla.org/zh-CN/docs/Glossary/Primitive)）。`Symbol()`函数会返回**symbol**类型的值，该类型具有静态属性和静态方法;每个从`Symbol()`返回的symbol值都是唯一的
+
+可以作为私有属性在内部使用
+
+```javascript
+//为了防止同名的属性覆盖
+const classRoom = { //必须用[]定义
+	[Symbol('lily')]: {grade: 60,gender: 'female'},
+	[Symbol('nina')]: {grade: 80,gender: 'female'},
+	[Symbol('nina')]: {grade: 90,gender: 'man'}
+}
+
+//Symbol(lily): {grade: 60, gender: "female"}
+//Symbol(nina): {grade: 80, gender: "female"}
+//Symbol(nina): {grade: 90, gender: "man"}
+
+const syms = Object.getOwnPropertySymbols(classRoom);//才可以遍历
+```
+

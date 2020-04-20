@@ -508,3 +508,9 @@ console.log(arr); //[ 1, 2, 3, 4, 5, 6 ]
 ```
 
 ### *48.JS实现一个函数对JavaScript中josn对象进行克隆*
+
+
+
+### *49.生成一个日期*
+
+new Date(year,month,day....)
