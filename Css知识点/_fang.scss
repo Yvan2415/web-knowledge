@@ -1,0 +1,114 @@
+$primary: #007aff;
+$success: #4cd964;
+$warning: #f0ad4e;
+$error: #dd524d;
+
+/* 文字基本颜色 */
+$font-color:#333;//基本色
+$font-inverse:#fff;//反色
+$font-grey:#999;//辅助灰色，如加载更多的提示信息
+$font-placeholder: #808080;
+$font-disable:#c0c0c0;
+
+/* 背景颜色 */
+$bg-color:#ffffff;
+$bg-grey:#f8f8f8;
+$bg-hover:#f1f1f1;//点击状态颜色
+$bg-mask:rgba(0, 0, 0, 0.4);//遮罩颜色
+
+// 容器的flex排列方式
+@mixin flex(
+	$direction: center,
+	$align:center
+){
+	display: flex;
+	justify-content: $direction;
+	align-items: $align;
+}
+
+//背景设置  
+@mixin background
+(	
+	$color:white,
+	$url:"",
+	$repeat:no-repeat,
+	$postion-x:center,
+	$position-y: center,
+	$width: 100%,
+	$height: 100%
+){
+	background: $color url($url) $repeat $postion-x $position-y;
+	background-size: $width $height;
+}
+
+//字体属性
+//font-style font-variant(字体异体) font-weight font-size/line-height font-family
+@mixin font(
+	$size,
+	$color:black,
+	$line-height: 1,
+	$weight:normal,
+	$font-family: inherit
+){
+	font: $weight $size $font-family;
+	color:$color;
+	line-height: $line-height;
+}
+
+//边框设置
+@mixin border
+(	
+	$width:1px,
+	$style:solid,
+	$color:rgba(230,230,230,1),
+	$top:1px,
+	$right:1px,
+	$bottom:1px,
+	$left:1px
+){
+	border:$width $style $color{
+		top-width: $top;
+		right-width: $right;
+		bottom-width: $bottom;
+		left-width: $left;
+	};
+}
+
+
+// 链接的四种状态下的颜色
+@mixin link-colors(
+	$link:black,
+	$hover:black,
+	$visited:black,
+	$active:black
+){
+	&:link{color: $link;}
+	&:hover{color: $hover;}
+	&:visited{color: $visited}
+	&:active{color: $active}
+}
+
+//背景的其他属性
+@mixin background-other(
+	$origin:content-box,
+	$attachment: scroll,
+	$clip: border-box
+){
+	background-origin: $origin;//指定背景图像的定位区域 padding-box|border-box|content-box;
+	background-attachment:  $attachment;//设置背景图像是否固定或者随着页面的其余部分滚动
+	/* scroll	背景图片随着页面的滚动而滚动，这是默认的。
+	fixed	    背景图片不会随着页面的滚动而滚动。
+	local	    背景图片会随着元素内容的滚动而滚动。
+	initial	设置该属性的默认值。
+	inherit	指定 background-attachment 的设置应该从父元素继承。 */
+	background-clip: $clip; 
+	/*border-box	默认值。背景绘制在边框方框内（剪切成边框方框）
+	padding-box	背景绘制在衬距方框内（剪切成衬距方框）
+	content-box	背景绘制在内容方框内（剪切成内容方框） */
+}
+
+
+/* -----------------------------项目自定义部分----------------------------------- */
+// 自定义的颜色
+$yellow:rgba(244, 183, 17, 1);
+$blue:raba(49, 144, 233, 1);
