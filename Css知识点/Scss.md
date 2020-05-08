@@ -18,6 +18,19 @@ $highlight-color:#F90;
 .select{
 	border:1px solid $highlight-color;
 }
+
+//如果需要镶嵌在字符串之中,就必须写在#{}之中
+$side:left;
+.round{
+    border-#{$side}-radius: 5px;
+}
+
+//计算功能
+body{
+    margin: (14px/2);
+    top: 50px + 100px;
+    right: $var * 10%;
+}
 ```
 
 #### 3.嵌套规则(像俄罗斯套娃那样在规则块中嵌套规则块)
@@ -261,3 +274,124 @@ a:visited { color: green; }
 
 > - 跟混合器相比，继承生成的`css`代码相对更少。因为继承仅仅是重复选择器，而不会重复属性，所以使用继承往往比混合器生成的`css`体积更小。如果你非常关心你站点的速度，请牢记这一点。
 > - 继承遵从`css`层叠的规则。当两个不同的`css`规则应用到同一个`html`元素上时，并且这两个不同的`css`规则对同一属性的修饰存在不同的值，`css`层叠规则会决定应用哪个样式。相当直观：通常权重更高的选择器胜出，如果权重相同，定义在后边的规则胜出。
+
+#### 19.条件语句
+
+@if用来判断
+
+```scss
+p{
+	@if 1 + 1 == 2{border: 1px solid}
+	@if 5 < 3 {border: 2px dotted}
+}
+```
+
+配套的还有@else
+
+```scss
+@if lightness($color) > 30%{
+	background-color: #000;
+}@else{
+	background-color: #fff;
+}
+```
+
+for循环
+
+```scss
+@for $i from 1 from 10{
+	.border-#{$i}{
+		border: #{$i}px solid blue;
+	}
+}
+```
+
+while循环
+
+```scss
+$i: 6;
+@while $i > 0{
+	.item-#{$i}{width: 2em *$i}
+	$i:$i-2;
+}
+
+```
+
+@each循环
+
+```scss
+
+@each $member in a,b,c,d{
+	.#{$member}{
+		background-image:url("/image/#{$member}.jpg")
+	}
+}
+```
+
+#### 20.自定义函数
+
+```scss
+@function double($n){
+	@return $n*2;
+}
+
+#sidebar{
+	width: double(5px);
+}
+```
+
+#### 21.占位符%
+
+```scss
+.icon{
+	width:20px;
+	height:20px;
+	color:red;
+}
+.icon-error{
+	@extends .icon;
+}
+
+.icon-right{
+    @extends .icon;
+}
+
+//编译后
+.icon,.icon-error,.icon-right{
+    width:20xp;
+    height:20px;
+    color:red;
+}
+
+//如果用占位符
+%icon{
+    width:20xp;
+    height:20px;
+    color:red;
+}
+.icon-error,.icon-right{
+    width:20px;
+	height:20px;
+	color:red;
+}
+
+//如果用@mixin
+@mixin icon{
+	width:20px;
+	height:20px;
+	color:red;
+}
+
+.icon_error{
+	width:20px;
+	height:20px;
+	color:red;
+}
+
+.icon-right{
+	width:20px;
+	height:20px;
+	color:red;
+}
+```
+

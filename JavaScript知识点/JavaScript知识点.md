@@ -191,7 +191,7 @@ Ajax是页面无刷新请求数据操作
 
 | document load                                               | document ready                                               |
 | ----------------------------------------------------------- | ------------------------------------------------------------ |
-| document.onload 是在结构和样式,外部js以及图片加载完才执行js | ready是dom树创建完成就执行的方法,原生种没有这个方法，jquery中有 $().ready(function) |
+| document.onload 是在结构和样式,外部js以及图片加载完才执行js | ready是dom树创建完成就执行的方法,原生种没有这个方法，jquery中有 $(document).ready(function) |
 
 ### *16."==" 和 "===" 的区别*
 
@@ -514,3 +514,52 @@ console.log(arr); //[ 1, 2, 3, 4, 5, 6 ]
 ### *49.生成一个日期*
 
 new Date(year,month,day....)
+
+### 50.原型与原型链
+
+```javascript
+function Person(name,age){
+	this.name = name;
+    this.age = age;
+    this.info = function(){
+        console.log(`my name is ${this.name},my age is ${this.age}`);
+    }
+}
+
+Person.prototype.describe = function(){
+    console.log(`the object's name is ${this.name},the object'age is ${this.age}`);
+}
+
+let jack = new Person("jack",22);
+/*
+age: 22
+info: ƒ ()
+name: "jack"
+__proto__: 
+	Object:describe: ƒ ()
+	constructor: ƒ Person(name,age)
+	__proto__: Object
+*/
+let lily = new Person('lily',18);
+/*
+age: 18
+info: ƒ ()
+name: "lily"
+__proto__: 
+	describe: ƒ ()
+	constructor: ƒ Person(name,age)
+	__proto__: Object
+*/
+jack.info === lily.info //false
+jack.describe === lily.describe//true
+```
+
+1. 每一个实例对象都有一个**_ _proto_ _**指向原型对象,包括**构造函数**,**prototype**等
+2. 原型对象上的prototype上则存放着被这个原型对象new出来的对象的共有的方法
+3. 因为原型对象也是一个object,所以它也有**_ _proto_ _**
+
+**为什么要将对象的共有方法写在原型对象的prototype上呢?**
+
+> 如上面的代码所示,如果将一个对象的方法写在构造函数内,那么每new一个对象,都会开辟一个空间存放这个对象的方法;但是,将方法写在prototype上时,则每个对象的方法都指向这个方法,减少了空间的占用;
+>
+> 如果我们需要重写这个方法,只需在对象上重新定义就行了;
