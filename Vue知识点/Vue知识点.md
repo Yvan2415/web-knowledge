@@ -1,3 +1,5 @@
+
+
 # Vue知识点总结
 
 [TOC]
@@ -85,4 +87,76 @@ methods,computed,wacth区别
 > 3. appear,元素初始化,入场时的动画 tag="ul" 将默认元素改变
 >
 > **如果需要动画效果,可以加transition,mode="out-in":先出再进**
+
+#### 4.render方法
+
+```
+1. render方法的实质就是生成template模板； 
+2. 通过调用一个方法来生成，而这个方法是通过render方法的参数传递给它的； 
+3. 这个方法有三个参数，分别提供标签名，标签相关属性，标签内部的html内容 
+4. 通过这三个参数，可以生成一个完整的木模板
+```
+
+> ```
+> render 函数`即渲染函数，它是个函数，它的参数也是个函数——即 `createElement
+> 
+> createElement 是 render 函数 的参数，它本身也是个函数，并且有三个参数。
+> 
+> createElement 函数的返回值（VNode）
+> createElement 函数的返回值是 VNode（即：虚拟节点）。
+> 
+> createElement 函数的参数（三个）
+> 一个 HTML 标签字符串，组件选项对象，或者解析上述任何一种的一个 async 异步函数。类型：{String | Object | Function}。必需。
+> 一个包含模板相关属性的数据对象你可以在 template 中使用这些特性。类型：{Object}。可选。
+> 子虚拟节点 (VNodes)，由 createElement() 构建而成，也可以使用字符串来生成“文本虚拟节点”。类型：{String | Array}。可选。
+> 
+> ```
+
+#### *5.Vue.use()*
+
+> 安装 Vue.js 插件。如果插件是一个对象，必须提供 `install` 方法。如果插件是一个函数，它会被作为 install 方法。install 方法调用时，会将 Vue 作为参数传入。
+>
+> 该方法需要在调用 `new Vue()` 之前被调用。
+>
+> 当 install 方法被同一个插件多次调用，插件将只会被安装一次。
+
+loading.vue
+
+```vue
+<template>
+	<div>Loading</div>
+</template>
+```
+
+index.js
+
+```javascript
+import loading from "./loading.vue"
+const loading  = {
+    install: function(Vue){ //会将vue用参数传入
+        Vue.component('Loading',loading);
+    }
+}
+export default loading;
+```
+
+main.js
+
+```javascript
+import loading from "./component/loading/index.js"
+Vue.use(loading);
+new Vue({});
+```
+
+
+
+#### *6.Vue.extend(options)*
+
+> 用法:使用基础 Vue 构造器，创建一个“子类”。参数是一个包含组件选项的对象。
+
+#### *7.Vue.nextTick*
+
+> 在DOM更新之后立即执行的操作
+>
+> 在this.$alert()中为了销毁AlertMessage组件,在这个方法中调用
 
