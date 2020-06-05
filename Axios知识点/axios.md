@@ -282,3 +282,4 @@ instance.interceptors.request.use(function () {/*...*/});
 ### 7.配置优先级
 
 配置方法的优先级是 `axios请求配置 > axios实例配置 > axios全局配置`
+

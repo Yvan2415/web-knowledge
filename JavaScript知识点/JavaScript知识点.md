@@ -6,22 +6,20 @@
 
 
 
-### *1.javascript的typeof返回那些数据类型*
+### *1.javascript的typeof返回那些数据类型(6种)*
 
-1. string
-2. undefined
+1. number
+2. string
 3. boolean
-4. function
-5. number
-6. object
+4. undefined
+5. function
+6. object(数据类型多一个null)
 
 ### *2.*例举3种强制类型转换和2种隐式类型转换?
 
 强制类型转换:parseInt,parseFloat,number
 
 隐式: ==    === 
-
-### *3. split() join() 的区别*
 
 前者是将字符串分割成数组,后者是将数组连接成字符串
 
@@ -130,18 +128,14 @@ var target = ev.srcElement||ev.target
 |            请求数据             |         提交数据         |
 |           安全性一般            |      安全性相对较高      |
 
-### *7.call和apply的区别*
+### *7.call和apply的区别,bind*
 
 ```javascript
 Object.call(this,obj1,obj2,obj3)
 
 Object.apply(this,arguments)
-```
 
-### *8.ajax请求时,如何解析json数据*
-
-```
-JSON.parse(string)
+//call,apply在绑定this时就执行,而bind(this,arguments)后生成一个新的函数,稍后执行
 ```
 
 ### *9.事件委托*
@@ -164,7 +158,14 @@ f(); //2
 f(); //3
 ```
 
-### *11.如何阻止事件冒泡*
+##### 闭包的好处
+
+1. 希望一个变量长期驻扎在内存当中(不被垃圾回收机制回收)
+2. 避免全局变量的污染
+3. 私有成员的存在
+4. 安全性提高
+
+### 11.如何阻止事件冒泡*
 
 |           IE           |         非IE         |
 | :--------------------: | :------------------: |
@@ -193,29 +194,6 @@ Ajax是页面无刷新请求数据操作
 | ----------------------------------------------------------- | ------------------------------------------------------------ |
 | document.onload 是在结构和样式,外部js以及图片加载完才执行js | ready是dom树创建完成就执行的方法,原生种没有这个方法，jquery中有 $(document).ready(function) |
 
-### *16."==" 和 "===" 的区别*
-
-前者会自动转换类型,再判断是否相等
-后者不会自动类型转换,直接去比较
-
-### *17.函数声明与函数表达式的区别?*
-
-> 在Javscript中，解析器在向执行环境中加载数据时，对函数声明和函数表达式并非是一视同仁的，解析器会率先读取函数声明，并使其在执行任何代码之前可用（可以访问），至于函数表达式，则必须等到解析器执行到它所在的代码行，才会真正被解析执行。
-
-```javascript
-add(1,2);//3
-function add(x,y){
-    alert(x+y)
-}
-
-add(1,2) //add is not a function  
-var add = function(x,y){  
-    alert(x+y)  
-} 
-```
-
-
-
 ### *18.对作用域上下文和this的理解*
 
 ```javascript
@@ -230,18 +208,6 @@ let func = User.getCount;
 console.log(func());//undefined
 
 // 因为func是在window的上下文中运行的,所以访问不到count
-```
-
-### *19.看下面代码，给出输出结果。*
-
-```javascript
-for(var i = 1; i <= 3; i++){  //建议使用let 可正常输出i的值
-  setTimeout(function(){
-      console.log(i);   
-  },0); 
-};
-答案：4 4 4。
-原因：Javascript事件处理器在线程空闲之前不会运行。
 ```
 
 ### *20.当一个DOM节点被点击时,我们希望执行一个函数,应该怎么做*
@@ -272,25 +238,6 @@ alert(typeof a); //object
 ### *23.正则表达 字母开头，后面可以是数字，下划线，字母，长度为6-30*
 
 > var reg = /^[a-zA-Z]\w{5,29}/
-
-### *24.alert的值分别是多少*
-
-```javascript
-var a = 100;  
-function test(){  
-    alert(a);  
-    a = 10;  //去掉了var 就变成定义了全局变量了
-    alert(a);  
-}  
-test();
-alert(a);
-//正确答案是： 100， 10， 10
-```
-
-### *25.javaScript的2种变量范围有什么不同？*
-
-1. 全局变量:当前页面有效
-2. 局部变量:函数方法内有效
 
 ### *26.null和undefined的区别？*
 
@@ -389,12 +336,6 @@ String.prototype.trim = function(){
 | readonly不可编辑，但可以选择和复制 | disabled不能编辑，不能复制，不能选择 |
 |          值可以传递到后台          |           值可以传递到后台           |
 
-### *35.javascriprt的数据类型*
-
-1. 主要数据类型：string, boolean, number
-2. 复合数据类型：function, object
-3. 特殊类型：undefined，null
-
 ### *36.程序中捕获异常的方法？*
 
 ```javascript
@@ -422,29 +363,6 @@ xhr.onreadystatechange =function(){}
 (2)当readystate==4时，表示已经接收到全部响应数据。
 (3)当status ==200时，表示服务器成功返回页面和数据。
 (4)如果(2)和(3)内容同时满足，则可以通过xhr.responseText，获得服务器返回的内容。
-```
-
-### *38.什么是Json*
-
-1. json是一种轻量级的数据交换格式
-2. json独立于语言和平台,json解析器和json库支持许多不同的编程语言
-3. JSON的语法表示三种类型值，简单值(字符串，数值，布尔值，null),数组，对象
-
-### *39.js中的3种弹出式消息提醒（警告窗口，确认窗口，信息输入窗口）的命令式什么？*
-
-alert,confirm,prompt
-
-### 40.执行以下代码的结果
-
-```javascript
-var uname = 'jack'
-function change() {
-    alert(uname) // ?
-    var uname = 'lily'
-    alert(uname)  //?
-}
-change()
-//分别alert出 undefined，lily，（变量声明提前问题）
 ```
 
 ### 41.浏览器的滚动距离
@@ -484,12 +402,7 @@ outerHTML(自己以及元素内的内容）
 
 (4)clientHeight（content高度+padding高度）
 
-### *46.闭包的好处*
 
-1. 希望一个变量长期驻扎在内存当中(不被垃圾回收机制回收)
-2. 避免全局变量的污染
-3. 私有成员的存在
-4. 安全性提高
 
 ### *47.冒泡排序算法*
 
@@ -509,13 +422,64 @@ console.log(arr); //[ 1, 2, 3, 4, 5, 6 ]
 
 ### *48.JS实现一个函数对JavaScript中josn对象进行克隆*
 
+Object.assign(target,source1,source2,....);//浅克隆
+
+JSON.parase(JSON.stringify(obj));//深克隆,但是有问题,空值,顺序等
+
+```javascript
+let obj = {
+	name: 'fang',
+	age: 22,
+	say: function(){
+		console.log("hello")
+	},
+	children:{
+		name: 'yvan'
+	}
+}
+// let key = Object.keys(obj);
+// console.log(key);
+function isBaseType(arg){
+	let type = typeof arg;
+	let obj = {};
+	if(type === 'string' || type === 'number' || type === 'boolean' || type === 'undefined' ){
+		obj.flag = 1;
+		obj.key = arg;
+	}
+	else if(type === "function"){
+		obj.flag = 2;
+		obj.key = Object.assign({},arg);
+	}else if(type === 'object'){
+		obj.flag = 3;
+	}
+	return obj;
+}
+function deepCopy(object){
+	let obj = {};
+	let keys = Object.keys(object)
+	for(let key of keys){
+		let json = isBaseType(object[key]);
+		if(json.flag == 1){
+			obj[key] = json.key;
+		}else if(json.flag == 2){
+			obj[key] = json.key;
+		}else{
+			obj[key] = deepCopy(object[key]);
+		}
+	}
+	return obj;
+}
+let obj2 = deepCopy(obj);//递归方法实现的深克隆
+console.log(obj.say === obj2.say)
+```
+
 
 
 ### *49.生成一个日期*
 
 new Date(year,month,day....)
 
-### 50.原型与原型链
+### *50.原型与原型链*
 
 ```javascript
 function Person(name,age){
@@ -563,3 +527,220 @@ jack.describe === lily.describe//true
 > 如上面的代码所示,如果将一个对象的方法写在构造函数内,那么每new一个对象,都会开辟一个空间存放这个对象的方法;但是,将方法写在prototype上时,则每个对象的方法都指向这个方法,减少了空间的占用;
 >
 > 如果我们需要重写这个方法,只需在对象上重新定义就行了;
+
+### *51.Object常用的方法*
+
+##### 1.Object.assign(target,source1,source2,...)
+
+```javascript
+// 该方法用于对象的合并,将对象source的所有可枚举属性合并到target上
+// Object.assign方法实行的是浅拷贝，而不是深拷贝
+// 会替换同名属性
+
+const target = {
+    x: 0,
+    y: 1
+}
+const source = {
+    x: 1,
+    z: 2,
+    fn: {
+        number: 1
+    }
+}
+Object.assign(target,source);
+console.log(target.fn == source.fn) //true
+```
+
+##### 2.Object.create(prototype,[propertiesObject])
+
+```javascript
+//使用指定的原型对象及其属性去创建一个新的对象
+var parent = {
+    x: 1,
+    y: 1
+}
+var child = Object.create(parent,{
+    z: {
+        writable: true,
+        configurable: true,
+        value: "newAdd"
+    }
+});
+console.log(child);//{z: "newAdd"},x,y在其_proto_上
+```
+
+##### 3.Object.defineProperties(obj,props)
+
+```javascript
+//直接在一个对象上定义新的属性或修改现有属性,并返回该对象
+var obj = {};
+Object.defineProperties(obj,{
+    'property1': {
+        value: true,
+        writable: true
+    },
+    'property2': {
+        value: 'hello',
+        writable: false
+    }
+});
+console.log(obj);//{property1: true, property2: "Hello"}
+```
+
+##### 4.Object.defineProperty(obj,prop,descriptor)
+
+```javascript
+//在一个对象上定义一个新属性,或者修改一个对象的现有属性,并返回这个对象
+Object.defineProperty(Object,'is',{
+    value: fucntion(x,y){
+    		if(x == y){
+    			return x !=0 || 1/x === 1/y
+			}
+			return x!==x && y !== y; 
+	},
+    configurable: true,
+    enumerbale: false,
+    writable: true
+})
+// 不能同时设置(writable,value)和get,set方法,否则会报错
+```
+
+##### 5.Object.keys(obj)
+
+```javascript
+//返回一个由一个给定对象的自身可枚举属性组成的数组,数组中属性名的排列顺序和使用 for...in 循环遍历该对象时返回的顺序一致,（两者的主要区别是 一个 for-in 循环还会枚举其原型链上的属性）
+
+var arr = ["a","b","c"];
+console.log(Object.keys(arr));//['0','1','2']
+```
+
+##### 6.Object.values(obj)
+
+```javascript
+//方法返回一个给定对象自己的所有可枚举属性值的数组，值的顺序与使用for...in循环的顺序相同 ( 区别在于 for-in 循环枚举原型链中的属性 )。Object.values会过滤属性名为 Symbol 值的属性
+
+var an_obj = { 100: 'a', 2: 'b', 7: 'c' };
+console.log(Object.values(an_obj)); // ['b', 'c', 'a']
+```
+
+##### 7.hasOwnProperty()
+
+```javascript
+//判断对象自身属性中是否具有指定的属性。
+obj.hasOwnProperty('name')
+```
+
+##### 8.Object.entries()
+
+```javascript
+//返回一个给定对象自身可枚举属性的键值对数组，其排列与使用 for...in 循环遍历该对象时返回的顺序一致（区别在于 for-in 循环也枚举原型链中的属性）。
+const obj = { foo: 'bar', baz: 42 };
+console.log(Object.entries(obj)); // [ ['foo', 'bar'], ['baz', 42] ]
+```
+
+##### 9.Object.getOwnPropertyNames()
+
+```javascript
+//返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性但不包括Symbol值作为名称的属性）组成的数组。
+
+var obj = { 0: "a", 1: "b", 2: "c"};
+Object.getOwnPropertyNames(obj).forEach(function(val) {
+  console.log(val);
+});
+var obj = {
+  x : 1,
+  y : 2
+}
+Object.defineProperty(obj,'z',{
+  enumerable : false
+})
+console.log(Object.getOwnPropertyNames(obj))  // ["x", "y", "z"] 包含不可枚举属性 。
+console.log(Object.keys(obj))                 // ["x", "y"]      只包含可枚举属性 。
+```
+
+##### 10.isPrototypeOf()
+
+```javascript
+// 判断一个对象是否存在于另一个对象的原型链上
+```
+
+##### 11.Object.setPrototypeOf(obj,prototype)
+
+```javascript
+//设置对象的原型对象
+```
+
+##### 12.Object.is()
+
+```javascript
+/*
+判断两个值是否相同。
+如果下列任何一项成立，则两个值相同：
+两个值都是 undefined
+两个值都是 null
+两个值都是 true 或者都是 false
+两个值是由相同个数的字符按照相同的顺序组成的字符串
+两个值指向同一个对象
+两个值都是数字并且
+都是正零 +0
+都是负零 -0
+都是 NaN
+都是除零和 NaN 外的其它同一个数字
+*/
+Object.is('foo', 'foo');     // true
+Object.is(window, window);   // true
+Object.is('foo', 'bar');     // false
+Object.is([], []);           // false
+var test = { a: 1 };
+Object.is(test, test);       // true
+Object.is(null, null);       // true
+// 特例
+Object.is(0, -0);            // false
+Object.is(-0, -0);           // true
+Object.is(NaN, 0/0);         // true
+```
+
+##### 13.Object.freeze()
+
+```javascript
+//冻结一个对象，冻结指的是不能向这个对象添加新的属性，不能修改其已有属性的值，不能删除已有属性，以及不能修改该对象已有属性的可枚举性、可配置性、可写性。
+```
+
+##### 14.Object.isFrozen()
+
+```javascript
+//判断一个对象是否被冻结.
+```
+
+##### 15.Object.preventExtensions()
+
+```javascript
+//对象不能再添加新的属性。可修改，删除现有属性，不能添加新属性
+```
+
+### *52.立即执行函数*
+
+> 在避免污染全局命名空间时经常使用这种模式,内部定义的变量外部获取不到
+
+```javascript
+//在定义的同时立即执行
+(function(){
+    let a = "fang";
+    function Aoo(){
+        console.log(a);
+    }
+    Aoo();
+})()
+```
+
+### *53.not defind 和 undefined 的区别*
+
+> 变量未定义,未赋值  报  not defind
+>
+> 变量已定义,未赋值, 报 undefined
+
+### *54.eval*
+
+> eval:方法只接受原始字符串作为参数,否则返回undefined
+
