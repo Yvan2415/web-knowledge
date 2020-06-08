@@ -21,8 +21,6 @@
 
 隐式: ==    === 
 
-前者是将字符串分割成数组,后者是将数组连接成字符串
-
 ### 4*.数组方法*
 
 1. 添加方法    push()尾部添加    unshift()头部添加
@@ -743,4 +741,16 @@ Object.is(NaN, 0/0);         // true
 ### *54.eval*
 
 > eval:方法只接受原始字符串作为参数,否则返回undefined
+
+### *55.JavaScript中querySelector()和getElementById()*
+
+> 文档对象模型`Document`引用的`querySelector()`方法返回文档中与指定选择器或选择器组匹配的第一个 html元素`Element`。 如果找不到匹配项，则返回`null`。
+
+其实两种方法是可以互换的.
+
+区别(取**动态集合**和**静态集合**的关系):
+
+1. getElementById():通过函数获取元素之后，元素之后的改变还是会动态添加到已经获取的这个元素中。
+2. querySelector():通过函数获取元素之后，元素之后的改变并不会影响之前获取后存储到的变量。
+3. querySelectorAll表示获取到所有满足条件的元素，返回的是一个列表
 
