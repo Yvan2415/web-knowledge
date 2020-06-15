@@ -452,6 +452,49 @@ export default let user = {  //默认导出
 
 //import的时候
 import user,{obj,name} from './demo.js'//命名导出不是赋值解构,只是像
+
+
+//ES6 与 node 向外暴露成员的异同
+// test.js
+export default{
+    name: '25',
+    age: 20
+}
+// export default 向外暴露成员,可以使用任意变量来接收
+// export default 只能向外暴露一次
+export var title = "今天天气不错吧";
+export function hello(){
+    console.log("hello export");
+}
+//使用 export 导出的成员，必须严格按照 导出时候的名称，来使用  {}  按需接收
+//使用 export 导出的成员，如果 就想 换个 名称来接收，可以使用 as 来起别名
+
+import {title,hello} from './test.js'
+
+
+//node中向外暴露对象 math.js
+let rectangle = (width, height) => {
+	return width * height;
+}
+exports.rectangle = rectangle;
+// 接收
+let math = require("./math.js")
+math.rectangle()
+
+// math2.js
+
+function rectangle(){
+    console.log('rectangle');
+}
+module.exports = rectangle;
+
+//接收
+let rectangle = require("./math.js)
+rectangle();                       
+
+//exports:返回的是模块函数
+//module.exports:返回的是模块对象本身，返回的是一个类
+
 ```
 
   

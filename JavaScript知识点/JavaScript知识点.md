@@ -754,3 +754,9 @@ Object.is(NaN, 0/0);         // true
 2. querySelector():通过函数获取元素之后，元素之后的改变并不会影响之前获取后存储到的变量。
 3. querySelectorAll表示获取到所有满足条件的元素，返回的是一个列表
 
+### *56.instanceof*
+
+> 分析：Instanceof运算符的第一个变量是一个对象，暂时称为A；第二个变量一般是一个函数，暂时称为B。
+>
+> Instanceof的判断队则是：沿着A的proto这条线来找，同时沿着B的prototype这条线来找，如果两条线能找到同一个引用，即同一个对象，那么就返回true。如果找到终点还未重合，则返回false
+
